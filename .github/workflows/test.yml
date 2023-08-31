@@ -13,6 +13,9 @@ on:
       - 'test/*.dart'
       - 'analysis_options.yaml'
       - 'pubspec.*'
+      
+  repository_dispatch:
+  workflow_dispatch:
 
 jobs:
   test:
