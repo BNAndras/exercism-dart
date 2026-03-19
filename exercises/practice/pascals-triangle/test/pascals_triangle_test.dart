@@ -7,7 +7,7 @@ void main() {
   group('PascalsTriangle', () {
     test('zero rows', () {
       final result = pascalsTriangle.rows(0);
-      expect(result, equals(<List<int>>[]));
+      expect(result, equals(<Object>[]));
     }, skip: false);
 
     test('single row', () {

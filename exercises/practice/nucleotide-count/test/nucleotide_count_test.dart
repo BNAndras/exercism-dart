@@ -2,40 +2,33 @@ import 'package:nucleotide_count/nucleotide_count.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final counter = NucleotideCount();
+  final nucleotideCount = NucleotideCount();
 
   group('NucleotideCount', () {
-    test('Empty strand', () {
-      final strand = "";
-      final result = counter.count(strand);
-      final expected = {"A": 0, "C": 0, "G": 0, "T": 0};
-      expect(result, equals(expected));
+    test('empty strand', () {
+      final result = nucleotideCount.nucleotideCounts('');
+      expect(result, equals(<String, int>{'A': 0, 'C': 0, 'G': 0, 'T': 0}));
     }, skip: false);
 
-    test('Can count one nucleotide in single-character input', () {
-      final strand = "G";
-      final result = counter.count(strand);
-      final expected = {"A": 0, "C": 0, "G": 1, "T": 0};
-      expect(result, equals(expected));
+    test('can count one nucleotide in single-character input', () {
+      final result = nucleotideCount.nucleotideCounts('G');
+      expect(result, equals(<String, int>{'A': 0, 'C': 0, 'G': 1, 'T': 0}));
     }, skip: true);
 
-    test('Strand with repeated nucleotide', () {
-      final strand = "GGGGGGG";
-      final result = counter.count(strand);
-      final expected = {"A": 0, "C": 0, "G": 7, "T": 0};
-      expect(result, equals(expected));
+    test('strand with repeated nucleotide', () {
+      final result = nucleotideCount.nucleotideCounts('GGGGGGG');
+      expect(result, equals(<String, int>{'A': 0, 'C': 0, 'G': 7, 'T': 0}));
     }, skip: true);
 
-    test('Strand with multiple nucleotides', () {
-      final strand = "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC";
-      final result = counter.count(strand);
-      final expected = {"A": 20, "C": 12, "G": 17, "T": 21};
-      expect(result, equals(expected));
+    test('strand with multiple nucleotides', () {
+      final result =
+          nucleotideCount.nucleotideCounts('AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC');
+      expect(result, equals(<String, int>{'A': 20, 'C': 12, 'G': 17, 'T': 21}));
     }, skip: true);
 
-    test('Handles invalid nucleotides', () {
-      final strand = "AGXXACT";
-      expect(() => counter.count(strand), throwsA(const TypeMatcher<InvalidNucleotideException>()));
+    test('strand with invalid nucleotides', () {
+      final result = nucleotideCount.nucleotideCounts('AGXXACT');
+      expect(result, equals(<String, String>{'error': 'Invalid nucleotide in strand'}));
     }, skip: true);
   });
 }

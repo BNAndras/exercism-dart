@@ -4,9 +4,6 @@ import 'package:test/test.dart';
 void main() {
   final hamming = Hamming();
 
-  final mustEqual = predicate((Error e) => e is ArgumentError && e.message == 'strands must be of equal length',
-      'an ArgumentError with the message "strands must be of equal length"');
-
   group('Hamming', () {
     test('empty strands', () {
       final result = hamming.distance('', '');
@@ -34,19 +31,23 @@ void main() {
     }, skip: true);
 
     test('disallow first strand longer', () {
-      expect(() => hamming.distance('AATG', 'AAA'), throwsA(mustEqual));
+      final result = hamming.distance('AATG', 'AAA');
+      expect(result, equals(<String, String>{'error': 'strands must be of equal length'}));
     }, skip: true);
 
     test('disallow second strand longer', () {
-      expect(() => hamming.distance('ATA', 'AGTG'), throwsA(mustEqual));
+      final result = hamming.distance('ATA', 'AGTG');
+      expect(result, equals(<String, String>{'error': 'strands must be of equal length'}));
     }, skip: true);
 
     test('disallow empty first strand', () {
-      expect(() => hamming.distance('', 'G'), throwsA(mustEqual));
+      final result = hamming.distance('', 'G');
+      expect(result, equals(<String, String>{'error': 'strands must be of equal length'}));
     }, skip: true);
 
     test('disallow empty second strand', () {
-      expect(() => hamming.distance('G', ''), throwsA(mustEqual));
+      final result = hamming.distance('G', '');
+      expect(result, equals(<String, String>{'error': 'strands must be of equal length'}));
     }, skip: true);
   });
 }

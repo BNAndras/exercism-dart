@@ -2,119 +2,123 @@ import 'package:dnd_character/dnd_character.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('DndCharacter: ability modifier - ', abilityModifier);
-  group('DndCharacter: abilities - ', abilities);
-}
+  final dndCharacter = DndCharacter();
 
-void abilityModifier() {
-  test('ability modifier for score 3 is -4', () {
-    expect(DndCharacter.modifier(3), equals(-4));
-  }, skip: false);
+  group('DndCharacter', () {
+    group('ability modifier', () {
+      test('ability modifier for score 3 is -4', () {
+        final result = dndCharacter.modifier(3);
+        expect(result, equals(-4));
+      }, skip: false);
 
-  test('ability modifier for score 4 is -3', () {
-    expect(DndCharacter.modifier(4), equals(-3));
-  }, skip: true);
+      test('ability modifier for score 4 is -3', () {
+        final result = dndCharacter.modifier(4);
+        expect(result, equals(-3));
+      }, skip: true);
 
-  test('ability modifier for score 5 is -3', () {
-    expect(DndCharacter.modifier(5), equals(-3));
-  }, skip: true);
+      test('ability modifier for score 5 is -3', () {
+        final result = dndCharacter.modifier(5);
+        expect(result, equals(-3));
+      }, skip: true);
 
-  test('ability modifier for score 6 is -2', () {
-    expect(DndCharacter.modifier(6), equals(-2));
-  }, skip: true);
+      test('ability modifier for score 6 is -2', () {
+        final result = dndCharacter.modifier(6);
+        expect(result, equals(-2));
+      }, skip: true);
 
-  test('ability modifier for score 7 is -2', () {
-    expect(DndCharacter.modifier(7), equals(-2));
-  }, skip: true);
+      test('ability modifier for score 7 is -2', () {
+        final result = dndCharacter.modifier(7);
+        expect(result, equals(-2));
+      }, skip: true);
 
-  test('ability modifier for score 8 is -1', () {
-    expect(DndCharacter.modifier(8), equals(-1));
-  }, skip: true);
+      test('ability modifier for score 8 is -1', () {
+        final result = dndCharacter.modifier(8);
+        expect(result, equals(-1));
+      }, skip: true);
 
-  test('ability modifier for score 9 is -1', () {
-    expect(DndCharacter.modifier(9), equals(-1));
-  }, skip: true);
+      test('ability modifier for score 9 is -1', () {
+        final result = dndCharacter.modifier(9);
+        expect(result, equals(-1));
+      }, skip: true);
 
-  test('ability modifier for score 10 is 0', () {
-    expect(DndCharacter.modifier(10), equals(0));
-  }, skip: true);
+      test('ability modifier for score 10 is 0', () {
+        final result = dndCharacter.modifier(10);
+        expect(result, equals(0));
+      }, skip: true);
 
-  test('ability modifier for score 11 is 0', () {
-    expect(DndCharacter.modifier(11), equals(0));
-  }, skip: true);
+      test('ability modifier for score 11 is 0', () {
+        final result = dndCharacter.modifier(11);
+        expect(result, equals(0));
+      }, skip: true);
 
-  test('ability modifier for score 12 is +1', () {
-    expect(DndCharacter.modifier(12), equals(1));
-  }, skip: true);
+      test('ability modifier for score 12 is +1', () {
+        final result = dndCharacter.modifier(12);
+        expect(result, equals(1));
+      }, skip: true);
 
-  test('ability modifier for score 13 is +1', () {
-    expect(DndCharacter.modifier(13), equals(1));
-  }, skip: true);
+      test('ability modifier for score 13 is +1', () {
+        final result = dndCharacter.modifier(13);
+        expect(result, equals(1));
+      }, skip: true);
 
-  test('ability modifier for score 14 is +2', () {
-    expect(DndCharacter.modifier(14), equals(2));
-  }, skip: true);
+      test('ability modifier for score 14 is +2', () {
+        final result = dndCharacter.modifier(14);
+        expect(result, equals(2));
+      }, skip: true);
 
-  test('ability modifier for score 15 is +2', () {
-    expect(DndCharacter.modifier(15), equals(2));
-  }, skip: true);
+      test('ability modifier for score 15 is +2', () {
+        final result = dndCharacter.modifier(15);
+        expect(result, equals(2));
+      }, skip: true);
 
-  test('ability modifier for score 16 is +3', () {
-    expect(DndCharacter.modifier(16), equals(3));
-  }, skip: true);
+      test('ability modifier for score 16 is +3', () {
+        final result = dndCharacter.modifier(16);
+        expect(result, equals(3));
+      }, skip: true);
 
-  test('ability modifier for score 17 is +3', () {
-    expect(DndCharacter.modifier(17), equals(3));
-  }, skip: true);
+      test('ability modifier for score 17 is +3', () {
+        final result = dndCharacter.modifier(17);
+        expect(result, equals(3));
+      }, skip: true);
 
-  test('ability modifier for score 18 is +4', () {
-    final result = DndCharacter.modifier(18);
-    expect(result, equals(4));
-  }, skip: true);
-}
+      test('ability modifier for score 18 is +4', () {
+        final result = dndCharacter.modifier(18);
+        expect(result, equals(4));
+      }, skip: true);
+    });
 
-void abilities() {
-  test('random ability is within range', () {
-    final score = DndCharacter.ability();
-    expect(score, inInclusiveRange(3, 18));
-  }, skip: true);
+    test('random ability is within range', () {
+      final result = dndCharacter.ability();
+      expect(result, equals('score >= 3 && score <= 18'));
+    }, skip: true);
 
-  test('random character is valid', () {
-    final character = DndCharacter.create();
-    expect(character.strength, inInclusiveRange(3, 18));
-    expect(character.dexterity, inInclusiveRange(3, 18));
-    expect(character.constitution, inInclusiveRange(3, 18));
-    expect(character.intelligence, inInclusiveRange(3, 18));
-    expect(character.wisdom, inInclusiveRange(3, 18));
-    expect(character.charisma, inInclusiveRange(3, 18));
-    expect(character.hitpoints, equals(10 + DndCharacter.modifier(character.constitution)));
-  }, skip: true);
+    test('random character is valid', () {
+      final result = dndCharacter.character();
+      expect(
+          result,
+          equals(<String, String>{
+            'strength': 'strength >= 3 && strength <= 18',
+            'dexterity': 'dexterity >= 3 && dexterity <= 18',
+            'constitution': 'constitution >= 3 && constitution <= 18',
+            'intelligence': 'intelligence >= 3 && intelligence <= 18',
+            'wisdom': 'wisdom >= 3 && wisdom <= 18',
+            'charisma': 'charisma >= 3 && charisma <= 18',
+            'hitpoints': 'hitpoints == 10 + modifier(constitution)'
+          }));
+    }, skip: true);
 
-  test('each ability is only calculated once', () {
-    final character = DndCharacter.create();
-
-    var read1 = character.strength;
-    var read2 = character.strength;
-    expect(read1, equals(read2));
-
-    read1 = character.dexterity;
-    read2 = character.dexterity;
-    expect(read1, equals(read2));
-
-    read1 = character.constitution;
-    read2 = character.constitution;
-    expect(read1, equals(read2));
-
-    read1 = character.intelligence;
-    read2 = character.intelligence;
-    expect(read1, equals(read2));
-
-    read1 = character.wisdom;
-    read2 = character.wisdom;
-    expect(read1, equals(read2));
-
-    read1 = character.charisma;
-    read2 = character.charisma;
-    expect(read1, equals(read2));
-  }, skip: true);
+    test('each ability is only calculated once', () {
+      final result = dndCharacter.character();
+      expect(
+          result,
+          equals(<String, String>{
+            'strength': 'strength == strength',
+            'dexterity': 'dexterity == dexterity',
+            'constitution': 'constitution == constitution',
+            'intelligence': 'intelligence == intelligence',
+            'wisdom': 'wisdom == wisdom',
+            'charisma': 'charisma == charisma'
+          }));
+    }, skip: true);
+  });
 }

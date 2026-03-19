@@ -66,7 +66,7 @@ void main() {
     }, skip: true);
 
     test('no factors means an empty sum', () {
-      final result = sumOfMultiples.sum(<int>[], 10000);
+      final result = sumOfMultiples.sum(<Object>[], 10000);
       expect(result, equals(0));
     }, skip: true);
 

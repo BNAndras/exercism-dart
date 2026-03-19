@@ -26,10 +26,8 @@ void main() {
     }, skip: true);
 
     test('there is no zeroth prime', () {
-      expect(
-          () => nthPrime.prime(0),
-          throwsA(isA<ArgumentError>()
-              .having((e) => e.toString(), 'message', 'Invalid argument(s): There is no zeroth prime')));
+      final result = nthPrime.prime(0);
+      expect(result, equals(<String, String>{'error': 'there is no zeroth prime'}));
     }, skip: true);
   });
 }

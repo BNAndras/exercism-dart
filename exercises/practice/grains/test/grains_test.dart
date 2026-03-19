@@ -2,82 +2,64 @@ import 'package:grains/grains.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Grains: square -', squareTests);
-  group('Grains: total - ', totalTests);
-}
+  final grains = Grains();
 
-void squareTests() {
-  test('grains on square 1', () {
-    final result = square(1);
-    final expected = BigInt.from(1);
-    expect(result, equals(expected));
-  }, skip: false);
+  group('Grains', () {
+    group('returns the number of grains on the square', () {
+      test('grains on square 1', () {
+        final result = grains.square(1);
+        expect(result, equals(1));
+      }, skip: false);
 
-  test('grains on square 2', () {
-    final result = square(2);
-    final expected = BigInt.from(2);
-    expect(result, equals(expected));
-  }, skip: true);
+      test('grains on square 2', () {
+        final result = grains.square(2);
+        expect(result, equals(2));
+      }, skip: true);
 
-  test('grains on square 3', () {
-    final result = square(3);
-    final expected = BigInt.from(4);
-    expect(result, equals(expected));
-  }, skip: true);
+      test('grains on square 3', () {
+        final result = grains.square(3);
+        expect(result, equals(4));
+      }, skip: true);
 
-  test('grains on square 4', () {
-    final result = square(4);
-    final expected = BigInt.from(8);
-    expect(result, equals(expected));
-  }, skip: true);
+      test('grains on square 4', () {
+        final result = grains.square(4);
+        expect(result, equals(8));
+      }, skip: true);
 
-  test('grains on square 16', () {
-    final result = square(16);
-    final expected = BigInt.from(32768);
-    expect(result, equals(expected));
-  }, skip: true);
+      test('grains on square 16', () {
+        final result = grains.square(16);
+        expect(result, equals(32768));
+      }, skip: true);
 
-  test('grains on square 32', () {
-    final result = square(32);
-    final expected = BigInt.from(2147483648);
-    expect(result, equals(expected));
-  }, skip: true);
+      test('grains on square 32', () {
+        final result = grains.square(32);
+        expect(result, equals(2147483648));
+      }, skip: true);
 
-  test('grains on square 64', () {
-    final result = square(64);
-    final expected = BigInt.parse('9223372036854775808');
-    expect(result, equals(expected));
-  }, skip: true);
+      test('grains on square 64', () {
+        final result = grains.square(64);
+        expect(result, equals(9223372036854776000.0));
+      }, skip: true);
 
-  test('square 0 raises an exception', () {
-    expect(
-        () => square(0),
-        throwsA(
-          isA<ArgumentError>().having((error) => error.message, 'message', 'square must be between 1 and 64'),
-        ));
-  }, skip: true);
+      test('square 0 is invalid', () {
+        final result = grains.square(0);
+        expect(result, equals(<String, String>{'error': 'square must be between 1 and 64'}));
+      }, skip: true);
 
-  test('negative square raises an exception', () {
-    expect(
-        () => square(-1),
-        throwsA(
-          isA<ArgumentError>().having((error) => error.message, 'message', 'square must be between 1 and 64'),
-        ));
-  }, skip: true);
+      test('negative square is invalid', () {
+        final result = grains.square(-1);
+        expect(result, equals(<String, String>{'error': 'square must be between 1 and 64'}));
+      }, skip: true);
 
-  test('square greater than 64 raises an exception', () {
-    expect(
-        () => square(65),
-        throwsA(
-          isA<ArgumentError>().having((error) => error.message, 'message', 'square must be between 1 and 64'),
-        ));
-  }, skip: true);
-}
+      test('square greater than 64 is invalid', () {
+        final result = grains.square(65);
+        expect(result, equals(<String, String>{'error': 'square must be between 1 and 64'}));
+      }, skip: true);
+    });
 
-void totalTests() {
-  test('returns the total number of grains on the board', () {
-    final result = total();
-    final expected = BigInt.parse('18446744073709551615');
-    expect(result, equals(expected));
-  }, skip: true);
+    test('returns the total number of grains on the board', () {
+      final result = grains.total();
+      expect(result, equals(18446744073709552000.0));
+    }, skip: true);
+  });
 }

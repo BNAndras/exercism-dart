@@ -105,11 +105,6 @@ void main() {
       expect(result, equals('Fine. Be that way!'));
     }, skip: true);
 
-    test('multiple line question', () {
-      final result = bob.response('\nDoes this cryogenic chamber make me look fat?\nNo.');
-      expect(result, equals('Whatever.'));
-    }, skip: true);
-
     test('starting with whitespace', () {
       final result = bob.response('         hmmmmmmm...');
       expect(result, equals('Whatever.'));
@@ -128,6 +123,11 @@ void main() {
     test('non-question ending with whitespace', () {
       final result = bob.response('This is a statement ending with whitespace      ');
       expect(result, equals('Whatever.'));
+    }, skip: true);
+
+    test('multiple line question', () {
+      final result = bob.response('\nDoes this cryogenic chamber make\n me look fat?');
+      expect(result, equals('Sure.'));
     }, skip: true);
   });
 }

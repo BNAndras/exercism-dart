@@ -5,145 +5,105 @@ void main() {
   final strain = Strain();
 
   group('Strain', () {
-    group('Keep', () {
-      test('keep on empty list returns empty list', () {
-        final values = [];
-        final fn = (x) => true;
-        final result = strain.keep(values, fn);
-        final expected = [];
-        expect(result, equals(expected));
-      }, skip: false);
+    test('keep on empty list returns empty list', () {
+      final result = strain.keep(<Object>[], 'fn(x) -> true');
+      expect(result, equals(<Object>[]));
+    }, skip: false);
 
-      test('keeps everything', () {
-        final values = [1, 3, 5];
-        final fn = (x) => true;
-        final result = strain.keep(values, fn);
-        final expected = [1, 3, 5];
-        expect(result, equals(expected));
-      }, skip: false);
+    test('keeps everything', () {
+      final result = strain.keep(<int>[1, 3, 5], 'fn(x) -> true');
+      expect(result, equals(<int>[1, 3, 5]));
+    }, skip: true);
 
-      test('keeps nothing', () {
-        final values = [1, 3, 5];
-        final fn = (x) => false;
-        final result = strain.keep(values, fn);
-        final expected = [];
-        expect(result, equals(expected));
-      }, skip: false);
+    test('keeps nothing', () {
+      final result = strain.keep(<int>[1, 3, 5], 'fn(x) -> false');
+      expect(result, equals(<Object>[]));
+    }, skip: true);
 
-      test('keeps first and last', () {
-        final values = [1, 2, 3];
-        final fn = (x) => x % 2 == 1;
-        final result = strain.keep(values, fn);
-        final expected = [1, 3];
-        expect(result, equals(expected));
-      }, skip: false);
+    test('keeps first and last', () {
+      final result = strain.keep(<int>[1, 2, 3], 'fn(x) -> x % 2 == 1');
+      expect(result, equals(<int>[1, 3]));
+    }, skip: true);
 
-      test('keeps neither first nor last', () {
-        final values = [1, 2, 3];
-        final fn = (x) => x % 2 == 0;
-        final result = strain.keep(values, fn);
-        final expected = [2];
-        expect(result, equals(expected));
-      }, skip: false);
+    test('keeps neither first nor last', () {
+      final result = strain.keep(<int>[1, 2, 3], 'fn(x) -> x % 2 == 0');
+      expect(result, equals(<int>[2]));
+    }, skip: true);
 
-      test('keeps strings', () {
-        final values = ["apple", "zebra", "banana", "zombies", "cherimoya", "zealot"];
-        final fn = (String x) => x.startsWith('z');
-        final result = strain.keep(values, fn);
-        final expected = ["zebra", "zombies", "zealot"];
-        expect(result, equals(expected));
-      }, skip: false);
+    test('keeps strings', () {
+      final result = strain.keep(
+          <String>['apple', 'zebra', 'banana', 'zombies', 'cherimoya', 'zealot'], 'fn(x) -> starts_with(x, \'z\')');
+      expect(result, equals(<String>['zebra', 'zombies', 'zealot']));
+    }, skip: true);
 
-      test('keeps lists', () {
-        final values = [
-          [1, 2, 3],
-          [5, 5, 5],
-          [5, 1, 2],
-          [2, 1, 2],
-          [1, 5, 2],
-          [2, 2, 1],
-          [1, 2, 5]
-        ];
-        final fn = (List<int> x) => x.contains(5);
-        final result = strain.keep(values, fn);
-        final expected = [
-          [5, 5, 5],
-          [5, 1, 2],
-          [1, 5, 2],
-          [1, 2, 5]
-        ];
-        expect(result, equals(expected));
-      }, skip: false);
-    });
+    test('keeps lists', () {
+      final result = strain.keep(<List<int>>[
+        <int>[1, 2, 3],
+        <int>[5, 5, 5],
+        <int>[5, 1, 2],
+        <int>[2, 1, 2],
+        <int>[1, 5, 2],
+        <int>[2, 2, 1],
+        <int>[1, 2, 5]
+      ], 'fn(x) -> contains(x, 5)');
+      expect(
+          result,
+          equals(<List<int>>[
+            <int>[5, 5, 5],
+            <int>[5, 1, 2],
+            <int>[1, 5, 2],
+            <int>[1, 2, 5]
+          ]));
+    }, skip: true);
 
-    group('Discard', () {
-      test('discard on empty list returns empty list', () {
-        final values = [];
-        final fn = (x) => true;
-        final result = strain.discard(values, fn);
-        final expected = [];
-        expect(result, equals(expected));
-      }, skip: false);
+    test('discard on empty list returns empty list', () {
+      final result = strain.discard(<Object>[], 'fn(x) -> true');
+      expect(result, equals(<Object>[]));
+    }, skip: true);
 
-      test('discards everything', () {
-        final values = [1, 3, 5];
-        final fn = (x) => true;
-        final result = strain.discard(values, fn);
-        final expected = [];
-        expect(result, equals(expected));
-      }, skip: false);
+    test('discards everything', () {
+      final result = strain.discard(<int>[1, 3, 5], 'fn(x) -> true');
+      expect(result, equals(<Object>[]));
+    }, skip: true);
 
-      test('discards nothing', () {
-        final values = [1, 3, 5];
-        final fn = (x) => false;
-        final result = strain.discard(values, fn);
-        final expected = [1, 3, 5];
-        expect(result, equals(expected));
-      }, skip: false);
+    test('discards nothing', () {
+      final result = strain.discard(<int>[1, 3, 5], 'fn(x) -> false');
+      expect(result, equals(<int>[1, 3, 5]));
+    }, skip: true);
 
-      test('discards first and last', () {
-        final values = [1, 2, 3];
-        final fn = (x) => x % 2 == 1;
-        final result = strain.discard(values, fn);
-        final expected = [2];
-        expect(result, equals(expected));
-      }, skip: false);
+    test('discards first and last', () {
+      final result = strain.discard(<int>[1, 2, 3], 'fn(x) -> x % 2 == 1');
+      expect(result, equals(<int>[2]));
+    }, skip: true);
 
-      test('discards neither first nor last', () {
-        final values = [1, 2, 3];
-        final fn = (x) => x % 2 == 0;
-        final result = strain.discard(values, fn);
-        final expected = [1, 3];
-        expect(result, equals(expected));
-      }, skip: false);
+    test('discards neither first nor last', () {
+      final result = strain.discard(<int>[1, 2, 3], 'fn(x) -> x % 2 == 0');
+      expect(result, equals(<int>[1, 3]));
+    }, skip: true);
 
-      test('discards strings', () {
-        final values = ["apple", "zebra", "banana", "zombies", "cherimoya", "zealot"];
-        final fn = (String x) => x.startsWith('z');
-        final result = strain.discard(values, fn);
-        final expected = ["apple", "banana", "cherimoya"];
-        expect(result, equals(expected));
-      }, skip: false);
+    test('discards strings', () {
+      final result = strain.discard(
+          <String>['apple', 'zebra', 'banana', 'zombies', 'cherimoya', 'zealot'], 'fn(x) -> starts_with(x, \'z\')');
+      expect(result, equals(<String>['apple', 'banana', 'cherimoya']));
+    }, skip: true);
 
-      test('discards lists', () {
-        final values = [
-          [1, 2, 3],
-          [5, 5, 5],
-          [5, 1, 2],
-          [2, 1, 2],
-          [1, 5, 2],
-          [2, 2, 1],
-          [1, 2, 5]
-        ];
-        final fn = (List<int> x) => x.contains(5);
-        final result = strain.discard(values, fn);
-        final expected = [
-          [1, 2, 3],
-          [2, 1, 2],
-          [2, 2, 1]
-        ];
-        expect(result, equals(expected));
-      }, skip: false);
-    });
+    test('discards lists', () {
+      final result = strain.discard(<List<int>>[
+        <int>[1, 2, 3],
+        <int>[5, 5, 5],
+        <int>[5, 1, 2],
+        <int>[2, 1, 2],
+        <int>[1, 5, 2],
+        <int>[2, 2, 1],
+        <int>[1, 2, 5]
+      ], 'fn(x) -> contains(x, 5)');
+      expect(
+          result,
+          equals(<List<int>>[
+            <int>[1, 2, 3],
+            <int>[2, 1, 2],
+            <int>[2, 2, 1]
+          ]));
+    }, skip: true);
   });
 }

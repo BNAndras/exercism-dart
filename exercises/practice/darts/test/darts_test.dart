@@ -25,12 +25,12 @@ void main() {
       expect(result, equals(10));
     }, skip: true);
 
-    test('Exactly on centre', () {
+    test('Exactly on center', () {
       final result = darts.score(0, 0);
       expect(result, equals(10));
     }, skip: true);
 
-    test('Near the centre', () {
+    test('Near the center', () {
       final result = darts.score(-0.1, -0.1);
       expect(result, equals(10));
     }, skip: true);

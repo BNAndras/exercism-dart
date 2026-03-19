@@ -1,13 +1,13 @@
 import 'package:anagram/anagram.dart';
 import 'package:test/test.dart';
 
-final anagram = Anagram();
-
 void main() {
+  final anagram = Anagram();
+
   group('Anagram', () {
     test('no matches', () {
       final result = anagram.findAnagrams('diaper', <String>['hello', 'world', 'zombies', 'pants']);
-      expect(result, equals(<String>[]));
+      expect(result, equals(<Object>[]));
     }, skip: false);
 
     test('detects two anagrams', () {
@@ -17,7 +17,7 @@ void main() {
 
     test('does not detect anagram subsets', () {
       final result = anagram.findAnagrams('good', <String>['dog', 'goody']);
-      expect(result, equals(<String>[]));
+      expect(result, equals(<Object>[]));
     }, skip: true);
 
     test('detects anagram', () {
@@ -38,7 +38,7 @@ void main() {
 
     test('does not detect non-anagrams with identical checksum', () {
       final result = anagram.findAnagrams('mass', <String>['last']);
-      expect(result, equals(<String>[]));
+      expect(result, equals(<Object>[]));
     }, skip: true);
 
     test('detects anagrams case-insensitively', () {
@@ -58,27 +58,27 @@ void main() {
 
     test('does not detect an anagram if the original word is repeated', () {
       final result = anagram.findAnagrams('go', <String>['goGoGO']);
-      expect(result, equals(<String>[]));
+      expect(result, equals(<Object>[]));
     }, skip: true);
 
     test('anagrams must use all letters exactly once', () {
       final result = anagram.findAnagrams('tapper', <String>['patter']);
-      expect(result, equals(<String>[]));
+      expect(result, equals(<Object>[]));
     }, skip: true);
 
     test('words are not anagrams of themselves', () {
       final result = anagram.findAnagrams('BANANA', <String>['BANANA']);
-      expect(result, equals(<String>[]));
+      expect(result, equals(<Object>[]));
     }, skip: true);
 
     test('words are not anagrams of themselves even if letter case is partially different', () {
       final result = anagram.findAnagrams('BANANA', <String>['Banana']);
-      expect(result, equals(<String>[]));
+      expect(result, equals(<Object>[]));
     }, skip: true);
 
     test('words are not anagrams of themselves even if letter case is completely different', () {
       final result = anagram.findAnagrams('BANANA', <String>['banana']);
-      expect(result, equals(<String>[]));
+      expect(result, equals(<Object>[]));
     }, skip: true);
 
     test('words other than themselves can be anagrams', () {
@@ -92,12 +92,8 @@ void main() {
     }, skip: true);
 
     test('different characters may have the same bytes', () {
-      /*
-        a⬂ => 61 E2 AC 82
-        €a => E2 82 AC 61
-      */
       final result = anagram.findAnagrams('a⬂', <String>['€a']);
-      expect(result, equals(<String>[]));
+      expect(result, equals(<Object>[]));
     }, skip: true);
   });
 }

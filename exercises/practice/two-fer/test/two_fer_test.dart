@@ -2,19 +2,21 @@ import 'package:test/test.dart';
 import 'package:two_fer/two_fer.dart';
 
 void main() {
+  final twoFer = TwoFer();
+
   group('TwoFer', () {
     test('no name given', () {
-      final result = twoFer();
+      final result = twoFer.twoFer();
       expect(result, equals('One for you, one for me.'));
     }, skip: false);
 
     test('a name given', () {
-      final result = twoFer('Alice');
+      final result = twoFer.twoFer('Alice');
       expect(result, equals('One for Alice, one for me.'));
     }, skip: true);
 
     test('another name given', () {
-      final result = twoFer('Bob');
+      final result = twoFer.twoFer('Bob');
       expect(result, equals('One for Bob, one for me.'));
     }, skip: true);
   });

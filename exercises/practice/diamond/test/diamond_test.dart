@@ -7,50 +7,22 @@ void main() {
   group('Diamond', () {
     test('Degenerate case with a single \'A\' row', () {
       final result = diamond.rows('A');
-      expect(
-          result,
-          equals(<String>[
-            'A',
-          ]));
+      expect(result, equals(<String>['A']));
     }, skip: false);
 
     test('Degenerate case with no row containing 3 distinct groups of spaces', () {
       final result = diamond.rows('B');
-      expect(
-          result,
-          equals(<String>[
-            ' A ',
-            'B B',
-            ' A ',
-          ]));
+      expect(result, equals(<String>[' A ', 'B B', ' A ']));
     }, skip: true);
 
     test('Smallest non-degenerate case with odd diamond side length', () {
       final result = diamond.rows('C');
-      expect(
-          result,
-          equals(<String>[
-            '  A  ',
-            ' B B ',
-            'C   C',
-            ' B B ',
-            '  A  ',
-          ]));
+      expect(result, equals(<String>['  A  ', ' B B ', 'C   C', ' B B ', '  A  ']));
     }, skip: true);
 
     test('Smallest non-degenerate case with even diamond side length', () {
       final result = diamond.rows('D');
-      expect(
-          result,
-          equals(<String>[
-            '   A   ',
-            '  B B  ',
-            ' C   C ',
-            'D     D',
-            ' C   C ',
-            '  B B  ',
-            '   A   ',
-          ]));
+      expect(result, equals(<String>['   A   ', '  B B  ', ' C   C ', 'D     D', ' C   C ', '  B B  ', '   A   ']));
     }, skip: true);
 
     test('Largest possible diamond', () {
@@ -108,7 +80,7 @@ void main() {
             '                      D     D                      ',
             '                       C   C                       ',
             '                        B B                        ',
-            '                         A                         ',
+            '                         A                         '
           ]));
     }, skip: true);
   });

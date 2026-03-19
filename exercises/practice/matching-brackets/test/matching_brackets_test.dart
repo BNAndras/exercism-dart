@@ -102,7 +102,7 @@ void main() {
 
     test('complex latex expression', () {
       final result = matchingBrackets
-          .isPaired('\left(\begin{array}{cc} \frac{1}{3} & x\ \mathrm{e}^{x} &... x^2 \end{array}\right)');
+          .isPaired('\\left(\\begin{array}{cc} \\frac{1}{3} & x\\\\ \\mathrm{e}^{x} &... x^2 \\end{array}\\right)');
       expect(result, equals(true));
     }, skip: true);
   });

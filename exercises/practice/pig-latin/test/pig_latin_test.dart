@@ -1,7 +1,9 @@
-import 'package:pig_latin/pig_latin.dart' as pigLatin;
+import 'package:pig_latin/pig_latin.dart';
 import 'package:test/test.dart';
 
 void main() {
+  final pigLatin = PigLatin();
+
   group('PigLatin', () {
     group('ay is added to words that start with vowels', () {
       test('word beginning with a', () {
@@ -54,6 +56,11 @@ void main() {
       test('word beginning with q without a following u', () {
         final result = pigLatin.translate('qat');
         expect(result, equals('atqay'));
+      }, skip: true);
+
+      test('word beginning with consonant and vowel containing qu', () {
+        final result = pigLatin.translate('liquid');
+        expect(result, equals('iquidlay'));
       }, skip: true);
     });
 

@@ -42,7 +42,7 @@ void main() {
 
     test('reversing no actions still gives no actions', () {
       final result = secretHandshake.commands(16);
-      expect(result, equals(<String>[]));
+      expect(result, equals(<Object>[]));
     }, skip: true);
 
     test('all possible actions', () {
@@ -57,7 +57,7 @@ void main() {
 
     test('do nothing for zero', () {
       final result = secretHandshake.commands(0);
-      expect(result, equals(<String>[]));
+      expect(result, equals(<Object>[]));
     }, skip: true);
   });
 }

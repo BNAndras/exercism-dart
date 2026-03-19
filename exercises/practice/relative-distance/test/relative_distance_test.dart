@@ -2,218 +2,213 @@ import 'package:relative_distance/relative_distance.dart';
 import 'package:test/test.dart';
 
 void main() {
+  final relativeDistance = RelativeDistance();
+
   group('RelativeDistance', () {
     test('Direct parent-child relation', () {
-      final familyTree = {
-        'Vera': ['Tomoko'],
-        'Tomoko': ['Aditi']
-      };
-      final distance = RelativeDistance(familyTree);
-      expect(distance.degreesOfSeparation('Vera', 'Tomoko'), equals(1));
+      final result = relativeDistance.degreeOfSeparation(<String, List<String>>{
+        'Vera': <String>['Tomoko'],
+        'Tomoko': <String>['Aditi']
+      }, 'Vera', 'Tomoko');
+      expect(result, equals(1));
     }, skip: false);
 
     test('Sibling relationship', () {
-      final familyTree = {
-        'Dalia': ['Olga', 'Yassin']
-      };
-      final distance = RelativeDistance(familyTree);
-      expect(distance.degreesOfSeparation('Olga', 'Yassin'), equals(1));
+      final result = relativeDistance.degreeOfSeparation(<String, List<String>>{
+        'Dalia': <String>['Olga', 'Yassin']
+      }, 'Olga', 'Yassin');
+      expect(result, equals(1));
     }, skip: true);
 
     test('Two degrees of separation, grandchild', () {
-      final familyTree = {
-        'Khadija': ['Mateo'],
-        'Mateo': ['Rami']
-      };
-      final distance = RelativeDistance(familyTree);
-      expect(distance.degreesOfSeparation('Khadija', 'Rami'), equals(2));
+      final result = relativeDistance.degreeOfSeparation(<String, List<String>>{
+        'Khadija': <String>['Mateo'],
+        'Mateo': <String>['Rami']
+      }, 'Khadija', 'Rami');
+      expect(result, equals(2));
     }, skip: true);
 
     test('Unrelated individuals', () {
-      final familyTree = {
-        'Priya': ['Rami'],
-        'Kaito': ['Elif']
-      };
-      final distance = RelativeDistance(familyTree);
-      expect(distance.degreesOfSeparation('Priya', 'Kaito'), equals(-1));
+      final result = relativeDistance.degreeOfSeparation(<String, List<String>>{
+        'Priya': <String>['Rami'],
+        'Kaito': <String>['Elif']
+      }, 'Priya', 'Kaito');
+      expect(result, equals(null));
     }, skip: true);
 
     test('Complex graph, cousins', () {
-      final familyTree = {
-        "Aiko": ["Bao", "Carlos"],
-        "Bao": ["Dalia", "Elias"],
-        "Carlos": ["Fatima", "Gustavo"],
-        "Dalia": ["Hassan", "Isla"],
-        "Elias": ["Javier"],
-        "Fatima": ["Khadija", "Liam"],
-        "Gustavo": ["Mina"],
-        "Hassan": ["Noah", "Olga"],
-        "Isla": ["Pedro"],
-        "Javier": ["Quynh", "Ravi"],
-        "Khadija": ["Sofia"],
-        "Liam": ["Tariq", "Uma"],
-        "Mina": ["Viktor", "Wang"],
-        "Noah": ["Xiomara"],
-        "Olga": ["Yuki"],
-        "Pedro": ["Zane", "Aditi"],
-        "Quynh": ["Boris"],
-        "Ravi": ["Celine"],
-        "Sofia": ["Diego", "Elif"],
-        "Tariq": ["Farah"],
-        "Uma": ["Giorgio"],
-        "Viktor": ["Hana", "Ian"],
-        "Wang": ["Jing"],
-        "Xiomara": ["Kaito"],
-        "Yuki": ["Leila"],
-        "Zane": ["Mateo"],
-        "Aditi": ["Nia"],
-        "Boris": ["Oscar"],
-        "Celine": ["Priya"],
-        "Diego": ["Qi"],
-        "Elif": ["Rami"],
-        "Farah": ["Sven"],
-        "Giorgio": ["Tomoko"],
-        "Hana": ["Umar"],
-        "Ian": ["Vera"],
-        "Jing": ["Wyatt"],
-        "Kaito": ["Xia"],
-        "Leila": ["Yassin"],
-        "Mateo": ["Zara"],
-        "Nia": ["Antonio"],
-        "Oscar": ["Bianca"],
-        "Priya": ["Cai"],
-        "Qi": ["Dimitri"],
-        "Rami": ["Ewa"],
-        "Sven": ["Fabio"],
-        "Tomoko": ["Gabriela"],
-        "Umar": ["Helena"],
-        "Vera": ["Igor"],
-        "Wyatt": ["Jun"],
-        "Xia": ["Kim"],
-        "Yassin": ["Lucia"],
-        "Zara": ["Mohammed"]
-      };
-      final distance = RelativeDistance(familyTree);
-      expect(distance.degreesOfSeparation('Dimitri', 'Fabio'), equals(9));
+      final result = relativeDistance.degreeOfSeparation(<String, List<String>>{
+        'Aiko': <String>['Bao', 'Carlos'],
+        'Bao': <String>['Dalia', 'Elias'],
+        'Carlos': <String>['Fatima', 'Gustavo'],
+        'Dalia': <String>['Hassan', 'Isla'],
+        'Elias': <String>['Javier'],
+        'Fatima': <String>['Khadija', 'Liam'],
+        'Gustavo': <String>['Mina'],
+        'Hassan': <String>['Noah', 'Olga'],
+        'Isla': <String>['Pedro'],
+        'Javier': <String>['Quynh', 'Ravi'],
+        'Khadija': <String>['Sofia'],
+        'Liam': <String>['Tariq', 'Uma'],
+        'Mina': <String>['Viktor', 'Wang'],
+        'Noah': <String>['Xiomara'],
+        'Olga': <String>['Yuki'],
+        'Pedro': <String>['Zane', 'Aditi'],
+        'Quynh': <String>['Boris'],
+        'Ravi': <String>['Celine'],
+        'Sofia': <String>['Diego', 'Elif'],
+        'Tariq': <String>['Farah'],
+        'Uma': <String>['Giorgio'],
+        'Viktor': <String>['Hana', 'Ian'],
+        'Wang': <String>['Jing'],
+        'Xiomara': <String>['Kaito'],
+        'Yuki': <String>['Leila'],
+        'Zane': <String>['Mateo'],
+        'Aditi': <String>['Nia'],
+        'Boris': <String>['Oscar'],
+        'Celine': <String>['Priya'],
+        'Diego': <String>['Qi'],
+        'Elif': <String>['Rami'],
+        'Farah': <String>['Sven'],
+        'Giorgio': <String>['Tomoko'],
+        'Hana': <String>['Umar'],
+        'Ian': <String>['Vera'],
+        'Jing': <String>['Wyatt'],
+        'Kaito': <String>['Xia'],
+        'Leila': <String>['Yassin'],
+        'Mateo': <String>['Zara'],
+        'Nia': <String>['Antonio'],
+        'Oscar': <String>['Bianca'],
+        'Priya': <String>['Cai'],
+        'Qi': <String>['Dimitri'],
+        'Rami': <String>['Ewa'],
+        'Sven': <String>['Fabio'],
+        'Tomoko': <String>['Gabriela'],
+        'Umar': <String>['Helena'],
+        'Vera': <String>['Igor'],
+        'Wyatt': <String>['Jun'],
+        'Xia': <String>['Kim'],
+        'Yassin': <String>['Lucia'],
+        'Zara': <String>['Mohammed']
+      }, 'Dimitri', 'Fabio');
+      expect(result, equals(9));
     }, skip: true);
 
     test('Complex graph, no shortcut, far removed nephew', () {
-      final familyTree = {
-        "Aiko": ["Bao", "Carlos"],
-        "Bao": ["Dalia", "Elias"],
-        "Carlos": ["Fatima", "Gustavo"],
-        "Dalia": ["Hassan", "Isla"],
-        "Elias": ["Javier"],
-        "Fatima": ["Khadija", "Liam"],
-        "Gustavo": ["Mina"],
-        "Hassan": ["Noah", "Olga"],
-        "Isla": ["Pedro"],
-        "Javier": ["Quynh", "Ravi"],
-        "Khadija": ["Sofia"],
-        "Liam": ["Tariq", "Uma"],
-        "Mina": ["Viktor", "Wang"],
-        "Noah": ["Xiomara"],
-        "Olga": ["Yuki"],
-        "Pedro": ["Zane", "Aditi"],
-        "Quynh": ["Boris"],
-        "Ravi": ["Celine"],
-        "Sofia": ["Diego", "Elif"],
-        "Tariq": ["Farah"],
-        "Uma": ["Giorgio"],
-        "Viktor": ["Hana", "Ian"],
-        "Wang": ["Jing"],
-        "Xiomara": ["Kaito"],
-        "Yuki": ["Leila"],
-        "Zane": ["Mateo"],
-        "Aditi": ["Nia"],
-        "Boris": ["Oscar"],
-        "Celine": ["Priya"],
-        "Diego": ["Qi"],
-        "Elif": ["Rami"],
-        "Farah": ["Sven"],
-        "Giorgio": ["Tomoko"],
-        "Hana": ["Umar"],
-        "Ian": ["Vera"],
-        "Jing": ["Wyatt"],
-        "Kaito": ["Xia"],
-        "Leila": ["Yassin"],
-        "Mateo": ["Zara"],
-        "Nia": ["Antonio"],
-        "Oscar": ["Bianca"],
-        "Priya": ["Cai"],
-        "Qi": ["Dimitri"],
-        "Rami": ["Ewa"],
-        "Sven": ["Fabio"],
-        "Tomoko": ["Gabriela"],
-        "Umar": ["Helena"],
-        "Vera": ["Igor"],
-        "Wyatt": ["Jun"],
-        "Xia": ["Kim"],
-        "Yassin": ["Lucia"],
-        "Zara": ["Mohammed"]
-      };
-      final distance = RelativeDistance(familyTree);
-      expect(distance.degreesOfSeparation('Lucia', 'Jun'), equals(14));
+      final result = relativeDistance.degreeOfSeparation(<String, List<String>>{
+        'Aiko': <String>['Bao', 'Carlos'],
+        'Bao': <String>['Dalia', 'Elias'],
+        'Carlos': <String>['Fatima', 'Gustavo'],
+        'Dalia': <String>['Hassan', 'Isla'],
+        'Elias': <String>['Javier'],
+        'Fatima': <String>['Khadija', 'Liam'],
+        'Gustavo': <String>['Mina'],
+        'Hassan': <String>['Noah', 'Olga'],
+        'Isla': <String>['Pedro'],
+        'Javier': <String>['Quynh', 'Ravi'],
+        'Khadija': <String>['Sofia'],
+        'Liam': <String>['Tariq', 'Uma'],
+        'Mina': <String>['Viktor', 'Wang'],
+        'Noah': <String>['Xiomara'],
+        'Olga': <String>['Yuki'],
+        'Pedro': <String>['Zane', 'Aditi'],
+        'Quynh': <String>['Boris'],
+        'Ravi': <String>['Celine'],
+        'Sofia': <String>['Diego', 'Elif'],
+        'Tariq': <String>['Farah'],
+        'Uma': <String>['Giorgio'],
+        'Viktor': <String>['Hana', 'Ian'],
+        'Wang': <String>['Jing'],
+        'Xiomara': <String>['Kaito'],
+        'Yuki': <String>['Leila'],
+        'Zane': <String>['Mateo'],
+        'Aditi': <String>['Nia'],
+        'Boris': <String>['Oscar'],
+        'Celine': <String>['Priya'],
+        'Diego': <String>['Qi'],
+        'Elif': <String>['Rami'],
+        'Farah': <String>['Sven'],
+        'Giorgio': <String>['Tomoko'],
+        'Hana': <String>['Umar'],
+        'Ian': <String>['Vera'],
+        'Jing': <String>['Wyatt'],
+        'Kaito': <String>['Xia'],
+        'Leila': <String>['Yassin'],
+        'Mateo': <String>['Zara'],
+        'Nia': <String>['Antonio'],
+        'Oscar': <String>['Bianca'],
+        'Priya': <String>['Cai'],
+        'Qi': <String>['Dimitri'],
+        'Rami': <String>['Ewa'],
+        'Sven': <String>['Fabio'],
+        'Tomoko': <String>['Gabriela'],
+        'Umar': <String>['Helena'],
+        'Vera': <String>['Igor'],
+        'Wyatt': <String>['Jun'],
+        'Xia': <String>['Kim'],
+        'Yassin': <String>['Lucia'],
+        'Zara': <String>['Mohammed']
+      }, 'Lucia', 'Jun');
+      expect(result, equals(14));
     }, skip: true);
 
     test(
         'Complex graph, some shortcuts, cross-down and cross-up, cousins several times removed, with unrelated family tree',
         () {
-      final familyTree = {
-        "Aiko": ["Bao", "Carlos"],
-        "Bao": ["Dalia"],
-        "Carlos": ["Fatima", "Gustavo"],
-        "Dalia": ["Hassan", "Isla"],
-        "Fatima": ["Khadija", "Liam"],
-        "Gustavo": ["Mina"],
-        "Hassan": ["Noah", "Olga"],
-        "Isla": ["Pedro"],
-        "Javier": ["Quynh", "Ravi"],
-        "Khadija": ["Sofia"],
-        "Liam": ["Tariq", "Uma"],
-        "Mina": ["Viktor", "Wang"],
-        "Noah": ["Xiomara"],
-        "Olga": ["Yuki"],
-        "Pedro": ["Zane", "Aditi"],
-        "Quynh": ["Boris"],
-        "Ravi": ["Celine"],
-        "Sofia": ["Diego", "Elif"],
-        "Tariq": ["Farah"],
-        "Uma": ["Giorgio"],
-        "Viktor": ["Hana", "Ian"],
-        "Wang": ["Jing"],
-        "Xiomara": ["Kaito"],
-        "Yuki": ["Leila"],
-        "Zane": ["Mateo"],
-        "Aditi": ["Nia"],
-        "Boris": ["Oscar"],
-        "Celine": ["Priya"],
-        "Diego": ["Qi"],
-        "Elif": ["Rami"],
-        "Farah": ["Sven"],
-        "Giorgio": ["Tomoko"],
-        "Hana": ["Umar"],
-        "Ian": ["Vera"],
-        "Jing": ["Wyatt"],
-        "Kaito": ["Xia"],
-        "Leila": ["Yassin"],
-        "Mateo": ["Zara"],
-        "Nia": ["Antonio"],
-        "Oscar": ["Bianca"],
-        "Priya": ["Cai"],
-        "Qi": ["Dimitri"],
-        "Rami": ["Ewa"],
-        "Sven": ["Fabio"],
-        "Tomoko": ["Gabriela"],
-        "Umar": ["Helena"],
-        "Vera": ["Igor"],
-        "Wyatt": ["Jun"],
-        "Xia": ["Kim"],
-        "Yassin": ["Lucia"],
-        "Zara": ["Mohammed"]
-      };
-      final distance = RelativeDistance(familyTree);
-      expect(distance.degreesOfSeparation('Wyatt', 'Xia'), equals(12));
+      final result = relativeDistance.degreeOfSeparation(<String, List<String>>{
+        'Aiko': <String>['Bao', 'Carlos'],
+        'Bao': <String>['Dalia'],
+        'Carlos': <String>['Fatima', 'Gustavo'],
+        'Dalia': <String>['Hassan', 'Isla'],
+        'Fatima': <String>['Khadija', 'Liam'],
+        'Gustavo': <String>['Mina'],
+        'Hassan': <String>['Noah', 'Olga'],
+        'Isla': <String>['Pedro'],
+        'Javier': <String>['Quynh', 'Ravi'],
+        'Khadija': <String>['Sofia'],
+        'Liam': <String>['Tariq', 'Uma'],
+        'Mina': <String>['Viktor', 'Wang'],
+        'Noah': <String>['Xiomara'],
+        'Olga': <String>['Yuki'],
+        'Pedro': <String>['Zane', 'Aditi'],
+        'Quynh': <String>['Boris'],
+        'Ravi': <String>['Celine'],
+        'Sofia': <String>['Diego', 'Elif'],
+        'Tariq': <String>['Farah'],
+        'Uma': <String>['Giorgio'],
+        'Viktor': <String>['Hana', 'Ian'],
+        'Wang': <String>['Jing'],
+        'Xiomara': <String>['Kaito'],
+        'Yuki': <String>['Leila'],
+        'Zane': <String>['Mateo'],
+        'Aditi': <String>['Nia'],
+        'Boris': <String>['Oscar'],
+        'Celine': <String>['Priya'],
+        'Diego': <String>['Qi'],
+        'Elif': <String>['Rami'],
+        'Farah': <String>['Sven'],
+        'Giorgio': <String>['Tomoko'],
+        'Hana': <String>['Umar'],
+        'Ian': <String>['Vera'],
+        'Jing': <String>['Wyatt'],
+        'Kaito': <String>['Xia'],
+        'Leila': <String>['Yassin'],
+        'Mateo': <String>['Zara'],
+        'Nia': <String>['Antonio'],
+        'Oscar': <String>['Bianca'],
+        'Priya': <String>['Cai'],
+        'Qi': <String>['Dimitri'],
+        'Rami': <String>['Ewa'],
+        'Sven': <String>['Fabio'],
+        'Tomoko': <String>['Gabriela'],
+        'Umar': <String>['Helena'],
+        'Vera': <String>['Igor'],
+        'Wyatt': <String>['Jun'],
+        'Xia': <String>['Kim'],
+        'Yassin': <String>['Lucia'],
+        'Zara': <String>['Mohammed']
+      }, 'Wyatt', 'Xia');
+      expect(result, equals(12));
     }, skip: true);
   });
 }
